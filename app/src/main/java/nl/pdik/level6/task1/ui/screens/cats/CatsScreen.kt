@@ -1,9 +1,7 @@
 package nl.pdik.level6.task1.ui.screens.cats
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExtendedFloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -19,6 +17,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.SubcomposeAsyncImage
 import nl.pdik.level6.task1.R
 import nl.pdik.level6.task1.data.api.Api
 import nl.pdik.level6.task1.data.api.util.Resource
@@ -30,26 +29,43 @@ fun CatsScreen(
 ) {
 
     val catResource: Resource<Cat>? by viewModel.catResource.observeAsState()
-    val imageUrl = Api.CATS_BASE_URL +  catResource?.data?.urlExtension
+
+    when (catResource) {
+        is Resource.Success -> (catResource as Resource.Success<Cat>).data?.urlExtension
+        is Resource.Error -> (catResource as Resource.Error<Cat>).message
+        is Resource.Loading -> stringResource(id = R.string.loading_text)
+        is Resource.Empty -> stringResource(id = R.string.empty_placeholder, "cat")
+        else -> stringResource(R.string.something_wrong_state)
+    }
+    val imageUrl = Api.CATS_BASE_URL + catResource?.data?.urlExtension
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "This will become the catsscreen",
-            textAlign = TextAlign.Center,
-            style = TextStyle(fontSize = 20.sp),
-            modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)
-                .heightIn(min = 16.dp)
-        )
-        ExtendedFloatingActionButton(
-            text = { Text(text = stringResource(R.string.get_cat)) },
-            onClick = { viewModel.getCat() },
-            icon = { Icon(Icons.Filled.Refresh, "") },
-            modifier = Modifier
-                .padding(vertical = 16.dp, horizontal = 16.dp)
-        )
 
-    }
+            Text(
+                text = "Cats image and capture date",
+                textAlign = TextAlign.Center,
+                style = TextStyle(fontSize = 20.sp),
+            )
+
+            Row(){
+                Text(text = stringResource(id = R.string.click_below, stringResource(R.string.cat)))
+                SubcomposeAsyncImage(
+                    model = imageUrl,
+                    loading = {
+                        CircularProgressIndicator()
+                    },
+                    contentDescription = "Image"
+                )
+            }
+
+
+            ExtendedFloatingActionButton(
+                text = { Text(text = stringResource(R.string.get, stringResource(R.string.cat))) },
+                onClick = { viewModel.getCat() },
+                icon = { Icon(Icons.Filled.Refresh, "") },
+                modifier = Modifier.padding(vertical = 16.dp, horizontal = 16.dp)
+            )
+        }
 }

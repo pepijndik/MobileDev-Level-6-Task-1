@@ -31,7 +31,6 @@ class CatsViewModel(application: Application) : AndroidViewModel(application) {
     fun getCat() {
         //set resource type to loading
         _catResource.value = Resource.Loading()
-
         viewModelScope.launch {
             _catResource.value = catRepository.getRandomCat();
         }

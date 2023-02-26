@@ -2,5 +2,13 @@
     <string name="app_name">Level 6 task 1</string>
     <string name="cats">cats</string>
     <string name="dogs">dogs</string>
-    <string name="get_cat">Get a new cat</string>
+
+    <string name="cat">cat</string>
+    <string name="dog">dog</string>
+
+    <string name="get">Get a new %s</string>
+    <string name="click_below">Click below to get a new %s</string>
+    <string name="loading_text">Is loading</string>
+    <string name="empty_placeholder">Empty %s</string>
+    <string name="something_wrong_state">Something when wrong</string>
 </resources>

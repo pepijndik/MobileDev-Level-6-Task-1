@@ -20,7 +20,7 @@ class DogsViewModel(application: Application) : AndroidViewModel(application) {
      * errorText can be observed from Activity for error showing
      * Encapsulation :)
      */
-    val catResource: LiveData<Resource<Dog>>
+    val dogResource: LiveData<Resource<Dog>>
         get() = _dogResource
 
     //initialize it with an Empty type of Resource
@@ -30,7 +30,7 @@ class DogsViewModel(application: Application) : AndroidViewModel(application) {
      * The viewModelScope is bound to Dispatchers.Main and will automatically be cancelled when the ViewModel is cleared.
      * Extension method of lifecycle-viewmodel-ktx library
      */
-    fun getDog(numberType: String) {
+    fun getDog() {
         //set resource type to loading
         _dogResource.value = Resource.Loading()
 
