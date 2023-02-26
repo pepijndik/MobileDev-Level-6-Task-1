@@ -56,10 +56,17 @@ fun DogsScreen(
 
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
-            ){
-                Text(text = stringResource(id = R.string.breed, imageUrl?.substringAfter("\\/")!!.substringBefore(
-                    "\\/breeds"
-                )))
+            ) {
+                if (imageUrl != null) {
+                    Text(
+                        text = stringResource(
+                            id = R.string.breed, imageUrl.substringAfter("/breeds/").substringBefore(
+                                "/"
+                            )
+                        )
+                    )
+                }
+
                 Text(text = stringResource(id = R.string.click_below, stringResource(R.string.dog)))
                 SubcomposeAsyncImage(
                     model = imageUrl,
