@@ -11,4 +11,5 @@
     <string name="loading_text">Is loading</string>
     <string name="empty_placeholder">Empty %s</string>
     <string name="something_wrong_state">Something when wrong</string>
+    <string name="breed">Breed %s</string>
 </resources>

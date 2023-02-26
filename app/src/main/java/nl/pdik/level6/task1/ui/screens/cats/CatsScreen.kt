@@ -15,15 +15,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
 import nl.pdik.level6.task1.R
 import nl.pdik.level6.task1.data.api.Api
 import nl.pdik.level6.task1.data.api.util.Resource
 import nl.pdik.level6.task1.data.model.Cat
 
 @Composable
+
 fun CatsScreen(
     viewModel: CatsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
@@ -49,15 +53,21 @@ fun CatsScreen(
                 style = TextStyle(fontSize = 20.sp),
             )
 
-            Row(){
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
                 Text(text = stringResource(id = R.string.click_below, stringResource(R.string.cat)))
                 SubcomposeAsyncImage(
                     model = imageUrl,
-                    loading = {
+                    contentDescription = "State"
+                ) {
+                    val state = painter.state
+                    if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
                         CircularProgressIndicator()
-                    },
-                    contentDescription = "Image"
-                )
+                    } else {
+                        SubcomposeAsyncImageContent()
+                    }
+                }
             }
 
 

@@ -19,7 +19,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
 import nl.pdik.level6.task1.R
 import nl.pdik.level6.task1.data.api.Api
 import nl.pdik.level6.task1.data.api.util.Resource
@@ -40,7 +42,7 @@ fun DogsScreen(
         is Resource.Empty -> stringResource(id = R.string.empty_placeholder, "Dog")
         else -> stringResource(R.string.something_wrong_state)
     }
-    val imageUrl = Api.CATS_BASE_URL + dogResource?.data?.url
+    val imageUrl = dogResource?.data?.url
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -52,17 +54,28 @@ fun DogsScreen(
                 style = TextStyle(fontSize = 20.sp),
             )
 
-            Text(text = stringResource(id = R.string.click_below, stringResource(R.string.cat)))
-            SubcomposeAsyncImage(
-                model = imageUrl,
-                loading = {
-                    CircularProgressIndicator()
-                },
-                contentDescription = "Image"
-            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Text(text = stringResource(id = R.string.breed, imageUrl?.substringAfter("\\/")!!.substringBefore(
+                    "\\/breeds"
+                )))
+                Text(text = stringResource(id = R.string.click_below, stringResource(R.string.dog)))
+                SubcomposeAsyncImage(
+                    model = imageUrl,
+                    contentDescription = "State"
+                ) {
+                    val state = painter.state
+                    if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
+                        CircularProgressIndicator()
+                    } else {
+                        SubcomposeAsyncImageContent()
+                    }
+                }
+            }
 
             ExtendedFloatingActionButton(
-                text = { Text(text = stringResource(R.string.get, stringResource(R.string.cat))) },
+                text = { Text(text = stringResource(R.string.get, stringResource(R.string.dog))) },
                 onClick = { viewModel.getDog() },
                 icon = { Icon(Icons.Filled.Refresh, "") },
                 modifier = Modifier.padding(vertical = 16.dp, horizontal = 16.dp)
