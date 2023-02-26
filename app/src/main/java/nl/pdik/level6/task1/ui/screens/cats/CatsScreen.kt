@@ -1,4 +1,4 @@
-package nl.pdik.level6.task1.ui.screens
+package nl.pdik.level6.task1.ui.screens.cats
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

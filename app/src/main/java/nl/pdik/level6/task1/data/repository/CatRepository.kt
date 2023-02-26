@@ -14,7 +14,7 @@ class CatRepository {
      * suspend function that calls a suspend function from the apiService call
      * @return result wrapped in our own Resource sealed class
      */
-    suspend fun getRandomNumber(numberType: String) : Resource<Cat> {
+    suspend fun getRandomCat() : Resource<Cat> {
 
         val response = try {
             withTimeout(5_000) {

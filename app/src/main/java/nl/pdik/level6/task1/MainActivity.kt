@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -23,7 +22,7 @@ import nl.pdik.level6.task1.ui.screens.PetsScreens
 import nl.pdik.level6.task1.ui.theme.Task1Theme
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import nl.pdik.level6.task1.ui.screens.CatsScreen
+import nl.pdik.level6.task1.ui.screens.cats.CatsScreen
 import nl.pdik.level6.task1.ui.screens.DogsScreen
 
 class MainActivity : ComponentActivity() {
