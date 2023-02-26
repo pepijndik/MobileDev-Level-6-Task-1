@@ -28,7 +28,7 @@ class CatsViewModel(application: Application) : AndroidViewModel(application) {
      * The viewModelScope is bound to Dispatchers.Main and will automatically be cancelled when the ViewModel is cleared.
      * Extension method of lifecycle-viewmodel-ktx library
      */
-    fun getCat(numberType: String) {
+    fun getCat() {
         //set resource type to loading
         _catResource.value = Resource.Loading()
 

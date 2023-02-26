@@ -2,4 +2,5 @@
     <string name="app_name">Level 6 task 1</string>
     <string name="cats">cats</string>
     <string name="dogs">dogs</string>
+    <string name="get_cat">Get a new cat</string>
 </resources>
